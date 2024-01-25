@@ -36,13 +36,17 @@ class XmlItem {
       indent: 2,
     }
   ): string {
-    const nl = (f: boolean = false) => (opts.minified ? "" : f ? "" : "\n");
+    const nl = (isEmpty: boolean = false) =>
+      opts.minified ? "" : isEmpty ? "" : "\n";
     const sp = (
-      args: { additional?: number; f?: boolean } = { additional: 0, f: false }
+      args: { additional?: number; isEmpty?: boolean } = {
+        additional: 0,
+        isEmpty: false,
+      }
     ) =>
       opts.minified
         ? ""
-        : args.f
+        : args.isEmpty
           ? ""
           : " ".repeat((opts.indent ?? 0) + (args.additional ?? 0));
 
@@ -61,7 +65,8 @@ class XmlItem {
       : "";
 
     const isChildrenIsNotString = !Array.isArray(this.children);
-    return `${sp()}<${this.type}${attributes === "" ? "" : ` ${attributes}`}>${nl(isChildrenIsNotString)}${content}${nl(isChildrenIsNotString)}${sp({ f: isChildrenIsNotString })}</${this.type}>`;
+    const innerText = `${nl(isChildrenIsNotString)}${content}${nl(isChildrenIsNotString)}`;
+    return `${sp()}<${this.type}${attributes === "" ? "" : ` ${attributes}`}>${this.children?.length ? innerText : nl()}${sp({ isEmpty: isChildrenIsNotString })}</${this.type}>`;
   }
 }
 

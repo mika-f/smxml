@@ -17,7 +17,6 @@ describe("index", () => {
       expect(index.build({ minified: false })).toMatchInlineSnapshot(`
         "<?xml version="1.0" encoding="UTF-8"?>
         <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
         </sitemapindex>"
       `);
     });
@@ -140,7 +139,6 @@ describe("url sets", () => {
       expect(sets.build({ minified: false })).toMatchInlineSnapshot(`
         "<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
         </urlset>"
       `);
     });
