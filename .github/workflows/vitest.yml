@@ -1,0 +1,25 @@
+name: "Testing"
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: ./.github/composite/nodejs
+
+      - name: Check Package
+        shell: bash
+        run: |
+          pnpm run test
